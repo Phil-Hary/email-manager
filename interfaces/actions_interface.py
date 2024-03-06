@@ -1,6 +1,6 @@
 import json
 
-from utils import CLI
+from utils import CLI, RuleEngine
 from enums import InterfaceEnum
 
 from gmail_client import GmailClient
@@ -29,9 +29,11 @@ class ActionsInterface(BaseInterface):
         CLI.display_menu(rule_names)
 
     def command_handler(self, email_manager, command):
-        if command == "1":
-            print("Code to mark as read")
-        elif command == "2":
-            email_manager.set_current_interface(InterfaceEnum.MOVE_MENU)
+        rules = self.rules.get("rules", [])
+        if not len(rules):
+            print("Error")
+        
+        rule = rules[int(command) - 1]
 
+        RuleEngine.execute(rule, email_manager)
             
