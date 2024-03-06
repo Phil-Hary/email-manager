@@ -1,0 +1,46 @@
+{
+    "rules": [
+        {
+            "name": "Rule 1",
+            "rule": {
+                "predicate": "all",
+                "rules": [
+                    {
+                        "field_name": "From",
+                        "field_type": "string",
+                        "predicate": "contains",
+                        "value": "Your"
+                    }
+                ]
+            },
+            "actions": [
+                {
+                    "action": "Mark as read"
+                }
+            ]
+        },
+        {
+            "name": "Rule 2",
+            "rule": {
+                "predicate": "all",
+                "rules": [
+                    {
+                        "field_name": "From",
+                        "field_type": "string",
+                        "predicate": "contains",
+                        "value": "Medium"
+                    }
+                ]
+            },
+            "actions": [
+                {
+                    "action": "Mark as read"
+                },
+                {
+                    "action": "Move",
+                    "location": "inbox"
+                }
+            ]
+        }
+    ]
+}
