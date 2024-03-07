@@ -2,3 +2,5 @@ client_secrets.json
 token.pickle
 __pycache__
 env
+email_manager.db
+*.pickle
