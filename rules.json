@@ -1,7 +1,7 @@
 {
     "rules": [
         {
-            "name": "Rule 1",
+            "name": "Rule 1 - Mark as read",
             "rule": {
                 "predicate": "all",
                 "rules": [
@@ -9,41 +9,49 @@
                         "field_name": "From",
                         "field_type": "string",
                         "predicate": "contains",
-                        "value": "Medium"
-                    }
-                ]
-            },
-            "actions": [
-                {
-                    "action": "Move",
-                    "location": "Secondary"
-                }
-            ]
-        },
-        {
-            "name": "Rule 2",
-            "rule": {
-                "predicate": "all",
-                "rules": [
-                    {
-                        "field_name": "Delivered-To",
-                        "field_type": "string",
-                        "predicate": "equals",
-                        "value": "augustin9940648860@gmail.com"
-                    },
-                    {
-                        "field_name": "Date",
-                        "field_type": "date",
-                        "predicate": "lesser than",
-                        "value": "24",
-                        "unit": "months"
+                        "value": "Youtube"
                     }
                 ]
             },
             "actions": [
                 {
                     "action": "Mark as read"
-                },
+                }
+            ]
+        },
+        {
+            "name": "Rule 2 - Mark as unread",
+            "rule": {
+                "predicate": "all",
+                "rules": [
+                    {
+                        "field_name": "From",
+                        "field_type": "string",
+                        "predicate": "contains",
+                        "value": "Youtube"
+                    }
+                ]
+            },
+            "actions": [
+                {
+                    "action": "Mark as unread"
+                }
+            ]
+        },
+        {
+            "name": "Rule 3 - Move",
+            "rule": {
+                "predicate": "all",
+                "rules": [
+                    {
+                        "field_name": "From",
+                        "field_type": "string",
+                        "predicate": "contains",
+                        "value": "Youtube"
+                    }
+                ]
+            },
+            "actions": [
                 {
                     "action": "Move",
                     "location": "Secondary"
