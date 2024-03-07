@@ -9,13 +9,14 @@
                         "field_name": "From",
                         "field_type": "string",
                         "predicate": "contains",
-                        "value": "Your"
+                        "value": "Medium"
                     }
                 ]
             },
             "actions": [
                 {
-                    "action": "Mark as read"
+                    "action": "Move",
+                    "location": "Secondary"
                 }
             ]
         },
@@ -25,10 +26,17 @@
                 "predicate": "all",
                 "rules": [
                     {
-                        "field_name": "From",
+                        "field_name": "Delivered-To",
                         "field_type": "string",
-                        "predicate": "contains",
-                        "value": "Medium"
+                        "predicate": "equals",
+                        "value": "augustin9940648860@gmail.com"
+                    },
+                    {
+                        "field_name": "Date",
+                        "field_type": "date",
+                        "predicate": "lesser than",
+                        "value": "24",
+                        "unit": "months"
                     }
                 ]
             },
@@ -38,7 +46,7 @@
                 },
                 {
                     "action": "Move",
-                    "location": "inbox"
+                    "location": "Secondary"
                 }
             ]
         }
