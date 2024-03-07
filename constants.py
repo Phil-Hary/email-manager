@@ -5,6 +5,17 @@ GMAIL_ATTRIBUTES_MAPPING = {
     "Date": "date"
 }
 
+GMAIL_EMAIL_MARK_AS_PAYLOAD = {
+    "READ": {
+        "addLabelIds": [],
+        "removeLabelIds": ["UNREAD"]
+    },
+    "UNREAD": {
+        "addLabelIds": ["UNREAD"],
+        "removeLabelIds": []
+    }
+}
+
 INTERFACES = {
     "PRE_AUTH": "PRE_AUTH",
     "POST_AUTH": "POST_AUTH",
