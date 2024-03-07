@@ -1,9 +1,8 @@
 import json
 
+from email_clients import GmailClient
+from exceptions import AppError
 from utils import CLI, RuleEngine
-from enums import InterfaceEnum
-
-from gmail_client import GmailClient
 
 from .base_interface import BaseInterface
 
@@ -31,7 +30,7 @@ class ActionsInterface(BaseInterface):
     def command_handler(self, email_manager, command):
         rules = self.rules.get("rules", [])
         if not len(rules):
-            print("Error")
+            raise AppError("Encoutered invalid rules")
         
         rule = rules[int(command) - 1]
 
