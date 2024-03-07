@@ -73,13 +73,12 @@ class RuleEngine:
             conditions.append(condition)
         
         overall_predicate_operator = RuleEngine.get_overall_predicate_operator(overall_predicate)
-
         where_clause = f" {overall_predicate_operator} ".join(conditions)
 
         return where_clause
 
     @staticmethod
-    def run_query( where_clause, parameters):
+    def run_query(email_address, where_clause, parameters):
         engine = DBUtils.get_engine()
         data = None
 
@@ -87,19 +86,16 @@ class RuleEngine:
             data = (
                 session.query(Email)
                 .join(Account, Email.account_id == Account.id)
-                .filter(Account.email_id == "augustin9940648860@gmail.com")
+                .filter(Account.email_id == email_address)
                 .filter(text(where_clause))
                 .params(**parameters)
                 .all()
             )
 
-        for d in data:
-            print(d.message_id)
-
         return data
 
     @staticmethod
-    def execute_rules(rules):
+    def execute_rules(rules, email_address):
         predicate = rules.get("predicate", None)
         rules = rules.get("rules", None)
         parameters = {}
@@ -108,7 +104,7 @@ class RuleEngine:
             raise AppError("Encountered an invalid rule predicate")
         
         where_clause = RuleEngine.rules_to_where_clause_converter(rules, predicate, parameters)
-        query_data = RuleEngine.run_query(where_clause, parameters)
+        query_data = RuleEngine.run_query(email_address, where_clause, parameters)
 
         return query_data
 
@@ -124,23 +120,25 @@ class RuleEngine:
             if action == "Mark as read":
                 email_client.mark_emails_as_read(email_address, message_ids)
                 CLI.display("Emails marked as read")
+            elif action == "Mark as unread":
+                email_client.mark_emails_as_unread(email_address, message_ids)
+                CLI.display("Emails marked as unread")
             elif action == "Move":
                 location = action_meta.get("location")
 
                 if not location:
-                    raise AppError("Location to be moved must be a valid")
+                    raise AppError("Location to be moved must be valid")
                 
                 email_client.move_emails(email_address, message_ids, location)
                 CLI.display(f"Emails moved to {location}")
             
-        
-
     @staticmethod
     def execute(rule, email_manager):
         rules = rule.get("rule", {})
         actions = rule.get("actions", [])
+        email_address = email_manager.get_email_address()
 
-        emails = RuleEngine.execute_rules(rules)
+        emails = RuleEngine.execute_rules(rules, email_address)
         
         if not len(emails):
             raise AppError("Cannot find any emails satifisying the selected rule")
