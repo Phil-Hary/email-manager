@@ -6,7 +6,7 @@ class DBUtils:
 
     @classmethod
     def initialize(cls):
-        cls._engine = create_engine("sqlite:///email_manager.db", echo=True)
+        cls._engine = create_engine("sqlite:///email_manager.db")
         Base.metadata.bind = cls._engine
     
     @classmethod
