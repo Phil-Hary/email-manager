@@ -60,6 +60,9 @@ class EmailManager:
                 #stops the execution in case of hard error
                 if e.hard_error:
                     break
+            except Exception as e:
+                CLI.display(str(e), DisplayModeEnum.ERROR)
+                break
 
 
 if __name__ == "__main__": 
