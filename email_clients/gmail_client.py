@@ -127,38 +127,9 @@ class GmailClient(EmailClient):
 
     
     def mark_emails_as_read(self, email_address, message_ids):
-        # response = requests.post(
-        #     url=f"https://www.googleapis.com/gmail/v1/users/{email_address}/messages/batchModify?access_token={self.credentials.token}",
-        #     headers={
-        #         "Accept": "application/json"
-        #     },
-        #     json={
-        #         "ids": message_ids,
-        #         "addLabelIds": [],
-        #         "removeLabelIds": ["UNREAD"]
-        #     }
-        # )
-
-        # if not response.ok:
-        #     raise AppError(f"Marking email as read failed with code {response.status_code}")
         self.mark_email(email_address, message_ids, "READ")
     
     def mark_emails_as_unread(self, email_address, message_ids):
-        # response = requests.post(
-        #     url=f"https://www.googleapis.com/gmail/v1/users/{email_address}/messages/batchModify?access_token={self.credentials.token}",
-        #     headers={
-        #         "Accept": "application/json"
-        #     },
-        #     json={
-        #         "ids": message_ids,
-        #         "addLabelIds": ["UNREAD"],
-        #         "removeLabelIds": []
-        #     }
-        # )
-
-        # if not response.ok:
-        #     raise AppError(f"Marking email as read failed with code {response.status_code}")
-
         self.mark_email(email_address, message_ids, "UNREAD")
     
     def get_location_label_id(self, email_address, location):
