@@ -16,6 +16,15 @@ GMAIL_EMAIL_MARK_AS_PAYLOAD = {
     }
 }
 
+GMAIL_SCOPES = [
+    'openid',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/gmail.modify'
+]
+
+GMAIL_SCERET_FILE_NAME = "client_secrets.json"
+GMAIL_NUMBER_OF_EMAILS = 50
+
 INTERFACES = {
     "PRE_AUTH": "PRE_AUTH",
     "POST_AUTH": "POST_AUTH",

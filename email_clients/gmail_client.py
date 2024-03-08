@@ -2,11 +2,18 @@ import os
 import pickle
 import requests
 
+from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
 
-from constants import GMAIL_ATTRIBUTES_MAPPING, GMAIL_EMAIL_MARK_AS_PAYLOAD
+from constants import (
+    GMAIL_ATTRIBUTES_MAPPING,
+    GMAIL_EMAIL_MARK_AS_PAYLOAD,
+    GMAIL_NUMBER_OF_EMAILS,
+    GMAIL_SCERET_FILE_NAME,
+    GMAIL_SCOPES
+)
+    
 from exceptions import AppError
 
 from .email_client import EmailClient
@@ -33,12 +40,8 @@ class GmailClient(EmailClient):
                 self.credentials.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    'client_secrets.json',
-                    scopes=[
-                        'openid',
-                        'https://www.googleapis.com/auth/userinfo.email',
-                        'https://www.googleapis.com/auth/gmail.modify'
-                    ])
+                    GMAIL_SCERET_FILE_NAME,
+                    scopes=GMAIL_SCOPES)
 
 
                 credentials = flow.run_local_server(port=0)
@@ -109,7 +112,7 @@ class GmailClient(EmailClient):
             url=f"https://gmail.googleapis.com/gmail/v1/users/{email_address}/messages",
             params={
                 "access_token": self.credentials.token,
-                "maxResults": 10,
+                "maxResults": GMAIL_NUMBER_OF_EMAILS,
                 "q": 'in:inbox'
             },
             headers={
