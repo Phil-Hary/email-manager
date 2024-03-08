@@ -33,3 +33,6 @@ DATE_PREDICATE_MAPPING = {
     "greater than": "BETWEEN",
     "lesser than": "BETWEEN"
 }
+
+SUPPORTED_EMAIL_PROVIDERS = ["Gmail"]
+

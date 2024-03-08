@@ -1,4 +1,5 @@
 from utils import CLI
+from constants import SUPPORTED_EMAIL_PROVIDERS
 from enums import InterfaceEnum
 from email_clients import GmailClient
 
@@ -8,7 +9,7 @@ from .base_interface import BaseInterface
 class PreAuthInterface(BaseInterface):
     def display_menu(self):
         CLI.display("Choose an email service provider to continue")
-        CLI.display_menu(["Gmail"])
+        CLI.display_menu(SUPPORTED_EMAIL_PROVIDERS)
 
     def command_handler(self, email_manager, command):
         if command == "1":
