@@ -64,10 +64,9 @@ class GmailClient(EmailClient):
         """
             Description: This method fetches the user's email address
         """
-        # self.initialize_service()
-        # email_address = self.service.users().getProfile(userId='me').execute()['emailAddress']
+        self.initialize_service()
+        email_address = self.service.users().getProfile(userId='me').execute()['emailAddress']
 
-        email_address = "augustin9940648860@gmail.com"
         return email_address
 
     def fetch_email_details(self, email_address, message_id):
@@ -166,7 +165,7 @@ class GmailClient(EmailClient):
             Description: This method fetches the location label id, for the emails to moved to the apporpriate location.
             In a run, it caches the labels inorder to prevent redundant calls
         """
-        self.labels = [{'id': 'Label_9127678679863354574', 'name': 'Secondary', 'type': 'user'}]
+        # self.labels = [{'id': 'Label_9127678679863354574', 'name': 'Secondary', 'type': 'user'}]
 
         if not len(self.labels):
             response = requests.get(

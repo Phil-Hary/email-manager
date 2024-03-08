@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil import parser
 
 from exceptions import AppError
 
@@ -17,3 +18,10 @@ class CommonUtils:
             raise AppError("An error occurred during date conversion")
         
         return date_time_obj
+    
+    @staticmethod
+    def parse_datestring(date_string):
+        try:
+            return parser.parse(date_string)
+        except Exception as e:
+            raise AppError(f"An error occurred while parsing the date string - str(e)")
