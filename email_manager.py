@@ -51,6 +51,7 @@ class EmailManager:
                 choice = input()
 
                 if choice == "0":
+                    CLI.display("Email Manager exited", DisplayModeEnum.ADMIN)
                     break
                     
                 interface.command_handler(self, choice)
@@ -67,4 +68,5 @@ class EmailManager:
 
 if __name__ == "__main__": 
     email_manager = EmailManager()
+    CLI.display("Email Manager is up and running", DisplayModeEnum.ADMIN)
     email_manager.driver()
