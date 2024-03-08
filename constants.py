@@ -23,7 +23,7 @@ GMAIL_SCOPES = [
 ]
 
 GMAIL_SCERET_FILE_NAME = "client_secrets.json"
-GMAIL_NUMBER_OF_EMAILS = 50
+GMAIL_NUMBER_OF_EMAILS = 30
 
 INTERFACES = {
     "PRE_AUTH": "PRE_AUTH",
@@ -34,7 +34,7 @@ INTERFACES = {
 STRING_PREDICATE_MAPPING = {
     "contains": "LIKE",
     "does not contain": "NOT LIKE",
-    "equals": "==",
+    "equals": "=",
     "not equals": "!="
 }
 
