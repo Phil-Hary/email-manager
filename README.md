@@ -4,6 +4,21 @@
 An email manager which can be used to fetch email from different email service providers and act on them based on the provided rules
 
 
+## Features
+
+- Email Service provider selection
+- Connecting to Gmail via Oauth
+- Fetching email and persisting it
+- Rule based action implementation
+
+## Codebase Features
+
+- Scripts driven by CLI
+- Ability to easily add more email clients
+- Ability to add more CLI menus
+- DB with migrations enabled
+- Error handling layer
+
 ## Run application
 
 Clone the project
