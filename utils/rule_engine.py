@@ -122,8 +122,13 @@ class RuleEngine:
         if not predicate:
             raise AppError("Encountered an invalid rule predicate")
         
-        where_clause = RuleEngine.rules_to_where_clause_converter(rules, predicate, parameters)
-        query_data = RuleEngine.run_query(email_address, where_clause, parameters)
+        try:
+            where_clause = RuleEngine.rules_to_where_clause_converter(rules, predicate, parameters)
+            query_data = RuleEngine.run_query(email_address, where_clause, parameters)
+        except AppError as e:
+            raise e
+        except Exception as e:
+            raise AppError(f"An error occurred during rule execution - {str(e)}")
 
         return query_data
 
