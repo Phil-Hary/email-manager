@@ -1,7 +1,7 @@
 {
     "rules": [
         {
-            "name": "Rule 1 - Mark as read",
+            "name": "Rule 1 - Move",
             "rule": {
                 "predicate": "all",
                 "rules": [
@@ -9,7 +9,27 @@
                         "field_name": "From",
                         "field_type": "string",
                         "predicate": "contains",
-                        "value": "Youtube"
+                        "value": "Google"
+                    }
+                ]
+            },
+            "actions": [
+                {
+                    "action": "Move",
+                    "location": "Google"
+                }
+            ]
+        },
+        {
+            "name": "Rule 2 - Mark as read",
+            "rule": {
+                "predicate": "all",
+                "rules": [
+                    {
+                        "field_name": "From",
+                        "field_type": "string",
+                        "predicate": "contains",
+                        "value": "Google"
                     }
                 ]
             },
@@ -20,7 +40,7 @@
             ]
         },
         {
-            "name": "Rule 2 - Mark as unread",
+            "name": "Rule 3 - Mark as unread",
             "rule": {
                 "predicate": "all",
                 "rules": [
@@ -28,33 +48,13 @@
                         "field_name": "From",
                         "field_type": "string",
                         "predicate": "contains",
-                        "value": "Youtube"
+                        "value": "Google"
                     }
                 ]
             },
             "actions": [
                 {
                     "action": "Mark as unread"
-                }
-            ]
-        },
-        {
-            "name": "Rule 3 - Move",
-            "rule": {
-                "predicate": "all",
-                "rules": [
-                    {
-                        "field_name": "From",
-                        "field_type": "string",
-                        "predicate": "contains",
-                        "value": "Youtube"
-                    }
-                ]
-            },
-            "actions": [
-                {
-                    "action": "Move",
-                    "location": "Secondary"
                 }
             ]
         }
