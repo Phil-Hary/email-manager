@@ -3,6 +3,9 @@ from exceptions import AppError
 from utils import CLI, InterfaceUtils, CoreUtils
 
 class EmailManager:
+    """
+        This is the entrypoint to the application, and drives the whole flow
+    """
     def __init__(self):
         self._is_authorized = False
         self._current_interface = InterfaceEnum.PRE_AUTH
@@ -37,6 +40,9 @@ class EmailManager:
         CoreUtils.fetch_and_save_emails(self)
     
     def driver(self):
+        """
+            Description: This is the driver method which diplays the different menus and capture user choices
+        """
         while True:
             try:
                 interface = InterfaceUtils.get_interface(self._current_interface)
@@ -51,6 +57,7 @@ class EmailManager:
             except AppError as e:
                 CLI.display(e.message, DisplayModeEnum.ERROR)
 
+                #stops the execution in case of hard error
                 if e.hard_error:
                     break
 
