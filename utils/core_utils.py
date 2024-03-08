@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from sqlalchemy.orm import Session
 
+from enums import DisplayModeEnum
 from models import Account, Email
 
 from .cli import CLI
@@ -46,7 +47,7 @@ class CoreUtils:
                 session.commit()
             
             email_details["account_id"] = account.id
-            email_details["date"] = CommonUtils.convert_date_string_to_object(email_details["date"])
+            email_details["date"] = CommonUtils.parse_datestring(email_details["date"])
             
             email = Email(**email_details)
             session.add(email)
@@ -70,7 +71,7 @@ class CoreUtils:
         email_ids = email_client.fetch_emails(email_address)
         new_email_ids = CoreUtils.get_new_email_ids(email_ids)
 
-        CLI.display(f"Fetched {len(new_email_ids)} new emails")
+        CLI.display(f"Fetched {len(new_email_ids)} new emails", DisplayModeEnum.ADMIN)
 
         with ThreadPoolExecutor() as executor:
             futures = [
@@ -82,3 +83,6 @@ class CoreUtils:
             for future in as_completed(futures):
                 email_details = future.result()
                 CoreUtils.save_email_details(email_address, email_details)
+            
+        if len(new_email_ids):
+            CLI.display("Emails fetched and saved to database", DisplayModeEnum.ADMIN)
