@@ -2,6 +2,9 @@ from sqlalchemy import create_engine
 from models import Base
 
 class DBUtils:
+    """
+        This class holds core DB util methods
+    """
     _engine = None
 
     @classmethod

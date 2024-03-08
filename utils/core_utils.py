@@ -9,8 +9,14 @@ from .db_utils import DBUtils
 
 
 class CoreUtils:
+    """
+        This class holds the core util methods which are used to perform core app operations
+    """
     @staticmethod
     def get_new_email_ids(email_ids):
+        """
+            Description: This method returns back the email_ids which is not in the db
+        """
         new_email_ids = []
         engine = DBUtils.get_engine()
 
@@ -26,6 +32,9 @@ class CoreUtils:
 
     @staticmethod
     def save_email_details(email_address, email_details):
+        """
+            Description: This method saves the email detais to the database
+        """
         engine = DBUtils.get_engine()
 
         with Session(engine) as session:
@@ -45,6 +54,16 @@ class CoreUtils:
         
     @staticmethod
     def fetch_and_save_emails(email_manager):
+        """
+            Description: This is the driver method which fetches and saves the emails to DB.
+            
+            Flow:
+                - First fetches the email ids from the email client
+                - Then identifies the email ids which is not already saved to 
+                  the DB to prevent redundant email detail calls
+                - For the new email id parallel fetches the email details
+                - Finally saves the new email details to the DB
+        """
         email_address = email_manager.get_email_address()
         email_client = email_manager.get_email_client()
         

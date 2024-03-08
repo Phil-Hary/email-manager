@@ -11,8 +11,14 @@ from .cli import CLI
 from .db_utils import DBUtils
 
 class RuleEngine:
+    """
+        This class holds the util methods to execute the rules
+    """
     @staticmethod
     def get_overall_predicate_operator(predicate):
+        """
+            Description: This method returns the equivalent operator for the overall predicate
+        """
         predicate = predicate.lower()
         if predicate == "all":
             return "AND"
@@ -23,6 +29,9 @@ class RuleEngine:
 
     @staticmethod
     def get_condition_from_rule(rule, idx, parameters):
+        """
+            Description: This method converts a json rule from the rule.json to equivalent sql condition
+        """
         field_name = rule["field_name"]
         predicate = rule["predicate"]
         value = rule["value"]
@@ -66,6 +75,9 @@ class RuleEngine:
 
     @staticmethod
     def rules_to_where_clause_converter(rules, overall_predicate, parameters):
+        """
+            Description: This method iteratively coverts the rules into the appropriate sql condition
+        """
         conditions = []
         
         for idx, rule in enumerate(rules):
@@ -79,6 +91,9 @@ class RuleEngine:
 
     @staticmethod
     def run_query(email_address, where_clause, parameters):
+        """
+            Description: This method runs the constructed query in the database and returns the result
+        """
         engine = DBUtils.get_engine()
         data = None
 
@@ -96,6 +111,10 @@ class RuleEngine:
 
     @staticmethod
     def execute_rules(rules, email_address):
+        """
+            Description: This method executes a rule by first converting all the rules to where clause and then
+            runs the query in the DB
+        """
         predicate = rules.get("predicate", None)
         rules = rules.get("rules", None)
         parameters = {}
@@ -111,6 +130,9 @@ class RuleEngine:
 
     @staticmethod
     def implement_action(email_manager, message_ids, actions):
+        """
+            Description: This method executes the action on the emails selected by the rules
+        """
         email_client = email_manager.get_email_client()
         email_address = email_manager.get_email_address()
 
@@ -134,6 +156,15 @@ class RuleEngine:
             
     @staticmethod
     def execute(rule, email_manager):
+        """
+            Description: This the driver method which get the rule selected by the user and processes it
+            Flow:
+                - Extracts the rule and the action from the rule definition
+                - Converts the rules into a where clause and constructs the query
+                - Executes the query on the DB
+                - If the query return any emails, implements the actions on them
+
+        """
         rules = rule.get("rule", {})
         actions = rule.get("actions", [])
         email_address = email_manager.get_email_address()
