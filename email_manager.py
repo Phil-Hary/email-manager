@@ -1,4 +1,4 @@
-from enums import InterfaceEnum
+from enums import InterfaceEnum, DisplayModeEnum
 from exceptions import AppError
 from utils import CLI, InterfaceUtils, CoreUtils
 
@@ -49,7 +49,10 @@ class EmailManager:
                     
                 interface.command_handler(self, choice)
             except AppError as e:
-                CLI.display(e.message)
+                CLI.display(e.message, DisplayModeEnum.ERROR)
+
+                if e.hard_error:
+                    break
 
 
 if __name__ == "__main__": 
