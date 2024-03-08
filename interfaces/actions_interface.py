@@ -1,6 +1,6 @@
 import json
 
-from email_clients import GmailClient
+from enums import DisplayModeEnum
 from exceptions import AppError
 from utils import CLI, RuleEngine
 
@@ -8,8 +8,11 @@ from .base_interface import BaseInterface
 
 class ActionsInterface(BaseInterface):
     def fetch_rules_from_file(self):
-        with open("rules.json", 'r') as file:
-            self.rules = json.load(file)
+        try:
+            with open("rules.json", 'r') as file:
+                self.rules = json.load(file)
+        except Exception as e:
+            raise AppError(f"An error occurred while reading rules.json - {str(e)}", hard_error=True)
     
     def get_rule_names(self):
         rule_names = []
@@ -28,6 +31,7 @@ class ActionsInterface(BaseInterface):
         CLI.display_menu(rule_names)
 
     def command_handler(self, email_manager, command):
+        CLI.display(f"Executing rule {command}", DisplayModeEnum.ADMIN)
         rules = self.rules.get("rules", [])
         if not len(rules):
             raise AppError("Encoutered invalid rules")
