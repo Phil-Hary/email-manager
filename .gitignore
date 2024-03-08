@@ -4,3 +4,4 @@ __pycache__
 env
 email_manager.db
 *.pickle
+.pytest_cache
