@@ -30,6 +30,9 @@ Install dependencies
 
   # mac
   source myenv/bin/activate
+
+  #install dependencies
+  pip install -r requirement.txt
   
 ```
 
@@ -62,6 +65,18 @@ Start the application
 If everything is configured properly, you will see the following in your terminal
 
 ![Up and Runnning](misc/screenshots/up_and_running.png)
+
+## Edit rules
+
+To edit the rules, run the following command
+
+```bash
+  #make sure you are in the email manager directory
+  cd email-manager
+  
+  #open rules.json and update the rules
+  vi rules.json
+```
 
 ## Running Tests
 
